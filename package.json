@@ -1,0 +1,10 @@
+{
+  "name": "rainbowkit-examples",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "dev": "pnpm dev --recursive --filter with-next",
+    "start": "pnpm dev",
+    "lint": "pnpm lint --recursive"
+  }
+}
