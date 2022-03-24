@@ -3,7 +3,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "pnpm dev --recursive --filter with-next",
+    "dev": "pnpm dev --recursive",
     "start": "pnpm dev",
     "lint": "pnpm lint --recursive"
   }
