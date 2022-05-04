@@ -2,48 +2,64 @@ import "@rainbow-me/rainbowkit/styles.css";
 import type { AppProps } from "next/app";
 import {
   RainbowKitProvider,
-  Chain,
   getDefaultWallets,
   connectorsForWallets,
+  configureChains,
+  apiProvider,
+  wallet,
 } from "@rainbow-me/rainbowkit";
-import { WagmiProvider, chain } from "wagmi";
-import { providers } from "ethers";
+import { chain, createClient, WagmiProvider } from "wagmi";
 
-const infuraId = process.env.INFURA_ID;
+const alchemyId = "_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC";
 
-const provider = ({ chainId }: { chainId?: number }) =>
-  new providers.InfuraProvider(chainId, infuraId);
+const { chains, provider, webSocketProvider } = configureChains(
+  [
+    chain.mainnet,
+    chain.polygon,
+    chain.optimism,
+    chain.arbitrum,
+    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true"
+      ? [chain.goerli, chain.kovan, chain.rinkeby, chain.ropsten]
+      : []),
+  ],
+  [apiProvider.alchemy(alchemyId), apiProvider.fallback()]
+);
 
-const chains: Chain[] = [
-  { ...chain.mainnet, name: "Ethereum" },
-  { ...chain.polygonMainnet, name: "Polygon" },
-  { ...chain.optimism, name: "Optimism" },
-  { ...chain.arbitrumOne, name: "Arbitrum" },
-];
-
-const wallets = getDefaultWallets({
+const { wallets } = getDefaultWallets({
+  appName: "RainbowKit demo",
   chains,
-  infuraId,
-  appName: "My RainbowKit App",
-  jsonRpcUrl: ({ chainId }) =>
-    chains.find((x) => x.id === chainId)?.rpcUrls?.[0] ??
-    chain.mainnet.rpcUrls[0],
 });
 
-const connectors = connectorsForWallets(wallets);
+const demoAppInfo = {
+  appName: "Rainbowkit Demo",
+};
+
+const connectors = connectorsForWallets([
+  ...wallets,
+  {
+    groupName: "Other",
+    wallets: [
+      wallet.argent({ chains }),
+      wallet.trust({ chains }),
+      wallet.ledger({ chains }),
+    ],
+  },
+]);
+
+const wagmiClient = createClient({
+  autoConnect: true,
+  connectors,
+  provider,
+  webSocketProvider,
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <RainbowKitProvider chains={chains}>
-      <WagmiProvider
-        autoConnect
-        // @ts-expect-error
-        connectors={connectors}
-        provider={provider}
-      >
+    <WagmiProvider client={wagmiClient}>
+      <RainbowKitProvider appInfo={demoAppInfo} chains={chains}>
         <Component {...pageProps} />
-      </WagmiProvider>
-    </RainbowKitProvider>
+      </RainbowKitProvider>
+    </WagmiProvider>
   );
 }
 
