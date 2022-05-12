@@ -1,3 +1,4 @@
+import "./global.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import type { AppProps } from "next/app";
 import {
@@ -10,8 +11,6 @@ import {
 } from "@rainbow-me/rainbowkit";
 import { chain, createClient, WagmiProvider } from "wagmi";
 
-const alchemyId = "_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC";
-
 const { chains, provider, webSocketProvider } = configureChains(
   [
     chain.mainnet,
@@ -22,7 +21,10 @@ const { chains, provider, webSocketProvider } = configureChains(
       ? [chain.goerli, chain.kovan, chain.rinkeby, chain.ropsten]
       : []),
   ],
-  [apiProvider.alchemy(alchemyId), apiProvider.fallback()]
+  [
+    apiProvider.alchemy("_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC"),
+    apiProvider.fallback(),
+  ]
 );
 
 const { wallets } = getDefaultWallets({
