@@ -1,6 +1,6 @@
 # 🌈 🧰 RainbowKit Examples
 
-**Example projects using [RainbowKit,](https://github.com/rainbow-me/rainbowkit) the best way to connect a wallet 🌈**
+**Example projects using [RainbowKit,](https://rainbowkit.com) the best way to connect a wallet 🌈**
 
 ### Available examples
 
