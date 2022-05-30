@@ -5,12 +5,12 @@ import "./index.css";
 
 import "@rainbow-me/rainbowkit/styles.css";
 import {
-  apiProvider,
-  configureChains,
   getDefaultWallets,
   RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
-import { chain, createClient, WagmiProvider } from "wagmi";
+import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
+import { alchemyProvider } from "wagmi/providers/alchemy";
+import { publicProvider } from "wagmi/providers/public";
 import App from "./App";
 
 const { chains, provider, webSocketProvider } = configureChains(
@@ -24,8 +24,8 @@ const { chains, provider, webSocketProvider } = configureChains(
       : []),
   ],
   [
-    apiProvider.alchemy("_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC"),
-    apiProvider.fallback(),
+    alchemyProvider({ alchemyId: "_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC" }),
+    publicProvider(),
   ]
 );
 
@@ -47,11 +47,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <WagmiProvider client={wagmiClient}>
+    <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains}>
         <App />
       </RainbowKitProvider>
-    </WagmiProvider>
+    </WagmiConfig>
   </React.StrictMode>
 );
 
