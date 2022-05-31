@@ -34,13 +34,13 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: rainbowStyles },
 ];
 
-// Keep environment variables on the server and expose them to the browser code.
+// Note: These environment variables are hard coded for demonstration purposes.
 // See: https://remix.run/docs/en/v1/guides/envvars#browser-environment-variables
 export const loader: LoaderFunction = () => {
   const data: LoaderData = {
     ENV: {
-      ALCHEMY_ID: process.env.ALCHEMY_ID,
-      PUBLIC_ENABLE_TESTNETS: process.env.PUBLIC_ENABLE_TESTNETS,
+      ALCHEMY_ID: process.env.ALCHEMY_ID || "_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC",
+      PUBLIC_ENABLE_TESTNETS: process.env.PUBLIC_ENABLE_TESTNETS || "false",
     },
   };
 
