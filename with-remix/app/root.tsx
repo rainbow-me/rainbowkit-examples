@@ -79,9 +79,9 @@ export default function App() {
                 <ConnectButton />
               </div>
             </RainbowKitProvider>
+            <Outlet />
           </WagmiConfig>
         ) : null}
-        <Outlet />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
