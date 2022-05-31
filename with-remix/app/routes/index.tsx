@@ -1,23 +1,8 @@
 export default function Index() {
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1>Welcome to Remix</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
-    </div>
+    <>
+      {/* <h1>RainbowKit Example</h1>
+      <p>Check out the documentation <a href="https://www.rainbowkit.com/docs/introduction">here</a>here.</p> */}
+    </>
   );
 }

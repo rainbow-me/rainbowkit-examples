@@ -18,7 +18,8 @@ import type {
 } from "@remix-run/node";
 import type { Chain } from "wagmi";
 
-import rainbowStyles from "@rainbow-me/rainbowkit/styles.css";
+import globalStylesUrl from "./styles/global.css";
+import rainbowStylesUrl from "@rainbow-me/rainbowkit/styles.css";
 
 type Env = { ALCHEMY_ID?: string; PUBLIC_ENABLE_TESTNETS?: string };
 
@@ -31,7 +32,8 @@ export const meta: MetaFunction = () => ({
 });
 
 export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: rainbowStyles },
+  { rel: "stylesheet", href: globalStylesUrl },
+  { rel: "stylesheet", href: rainbowStylesUrl },
 ];
 
 // Note: These environment variables are hard coded for demonstration purposes.
