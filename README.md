@@ -9,6 +9,7 @@ The following examples are provided in this repo.
 - `with-create-react-app`
 - `with-next`
 - `with-next-custom-button`
+- `with-remix`
 
 ### Setup
 
