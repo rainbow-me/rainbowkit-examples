@@ -25,6 +25,7 @@ const Home: NextPage = () => {
     write: mint,
     isLoading: isMintLoading,
     isSuccess: isMintStarted,
+    error: mintError,
   } = useContractWrite(contractConfig, 'mint');
 
   const { data: totalSupplyData } = useContractRead(
@@ -33,7 +34,7 @@ const Home: NextPage = () => {
     { watch: true }
   );
 
-  const { isSuccess: txSuccess } = useWaitForTransaction({
+  const { isSuccess: txSuccess, error: txError } = useWaitForTransaction({
     hash: mintData?.hash,
   });
 
@@ -55,6 +56,18 @@ const Home: NextPage = () => {
               {totalMinted} minted so far!
             </p>
             <ConnectButton />
+
+            {mintError && (
+              <p style={{ marginTop: 24, color: '#FF6257' }}>
+                Error: {mintError.message}
+              </p>
+            )}
+            {txError && (
+              <p style={{ marginTop: 24, color: '#FF6257' }}>
+                Error: {txError.message}
+              </p>
+            )}
+
             {isConnected && !isMinted && (
               <button
                 style={{ marginTop: 24 }}
